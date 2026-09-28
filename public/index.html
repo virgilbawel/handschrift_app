@@ -26,16 +26,20 @@
     <!-- 2. Hero -->
     <section class="hero">
       <div class="container hero-inner">
-        <h1>Handgeschreven werk nakijken kost je nu 15 minuten per leerling. Dat kan sneller met Claude of ChatGPT. Ontdek zelf hoe je dit maakt</h1>
+        <h1>Handgeschreven werk nakijken kost al snel 15 minuten per leerling. Dat kan sneller met Claude of ChatGPT. Ontdek zelf hoe je dit maakt</h1>
         <p class="lead">Upload een foto van handgeschreven NT2-werk en krijg direct een leesbare, letterlijke transcriptie terug — inclusief onduidelijke woorden die hersteld zijn op basis van context.</p>
 
         <form id="email-form" class="email-form" novalidate>
           <label for="email" class="sr-only">E-mailadres</label>
           <input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="jouw@e-mailadres.nl" required>
           <button type="submit" class="btn">Probeer gratis</button>
+          <label class="consent" for="consent">
+            <input id="consent" name="consent" type="checkbox">
+            <span>Mail me ook over de cursus waarin je leert zelf zo'n app te bouwen. Afmelden kan altijd.</span>
+          </label>
         </form>
         <p id="email-error" class="form-error" role="alert" hidden></p>
-        <p class="form-note"><strong class="form-note-strong">Je krijgt <span data-free-limit>3 gratis transcripties</span>.</strong> Door je e-mailadres in te vullen, ga je ermee akkoord dat we je af en toe mailen. Afmelden kan altijd.</p>
+        <p class="form-note"><strong class="form-note-strong">Je krijgt <span data-free-limit>3 gratis transcripties</span>.</strong> Je e-mailadres gebruiken we om je toegang te geven. Lees de <a href="privacyverklaring.html">privacyverklaring</a>.</p>
       </div>
     </section>
 
@@ -88,7 +92,7 @@
         <div id="course-cta" class="card cta-card" hidden>
           <h2>Wil je zelf leren om deze app te bouwen met Claude of ChatGPT?</h2>
           <!-- TODO: vervang href="#cursus" door echte cursuspagina-URL -->
-          <a href="#cursus" class="btn btn-light">Klik hier</a>
+          <a href="#cursus" class="btn btn-light">Bekijk de cursus</a>
         </div>
       </div>
     </section>
@@ -129,6 +133,12 @@
         <h2>Gemaakt voor NT2-docenten, niet voor techneuten</h2>
         <p>Je hebt geen kennis van AI nodig en er zijn geen ingewikkelde instellingen. Vul je e-mailadres in, maak een foto en je krijgt de tekst terug. Dat is alles.</p>
         <a href="#email" class="btn" data-scroll-to-email>Probeer gratis</a>
+
+        <div class="maker">
+          <h3>Gemaakt door een NT2-docent</h3>
+          <p>Ik ben zelf NT2-docent en heb dit probleem in de praktijk ervaren: veel tijd kwijt aan het ontcijferen van handschrift, tijd die ik liever aan feedback besteed. Daarom heb ik deze tool gebouwd, met hulp van Claude.</p>
+          <p>Wil je weten hoe je zoiets zelf maakt? <!-- TODO: vervang href="#cursus" door echte cursuspagina-URL --><a href="#cursus">Bekijk de cursus</a>.</p>
+        </div>
       </div>
     </section>
 
@@ -145,7 +155,7 @@
   <!-- 8. Footer -->
   <footer class="site-footer">
     <div class="container">
-      © 2026 Handschriftlezer · <a href="mailto:virgilbawits@gmail.com">virgilbawits@gmail.com</a>
+      © 2026 Handschriftlezer · <a href="mailto:virgilbawits@gmail.com">virgilbawits@gmail.com</a> · <a href="privacyverklaring.html">Privacyverklaring</a>
     </div>
   </footer>
 

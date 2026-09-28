@@ -84,14 +84,21 @@ Zet `ADMIN_TOKEN` in je instellingen en open daarna:
 https://jouw-site.onrender.com/api/admin/emails.csv?token=JOUW_ADMIN_TOKEN
 ```
 
-Je krijgt een CSV-bestand (te openen in Excel of te importeren in je mailprogramma) met e-mailadres, naam, aanmelddatum en het aantal gebruikte transcripties. Lokaal staat dezelfde lijst in `data/emails.json`.
+Je krijgt een CSV-bestand (te openen in Excel of te importeren in je mailprogramma) met e-mailadres, naam, `mag_mailen` (ja/nee), datum van toestemming, aanmelddatum en het aantal gebruikte transcripties.
+
+**Mail over de cursus alleen de adressen met `mag_mailen = ja`.** Bezoekers krijgen toegang tot de tool met alleen hun e-mailadres; toestemming voor marketingmail geven ze apart met een vinkje (zo vereist de AVG). Meldt iemand zich af, zet dan in `emails.json` `"marketingConsent": false` bij dat adres. Lokaal staat dezelfde lijst in `data/emails.json`.
+
+## Privacyverklaring
+
+`public/privacyverklaring.html` is een **concept**. Vul bij de `TODO` bovenin je naam (of bedrijfsnaam) in en controleer de gegevens. Laat het bij twijfel nakijken; het is geen juridisch advies.
 
 ## De cursuslink vervangen
 
-In `public/index.html` staan twee plekken met een `TODO`-comment:
+In `public/index.html` staan drie plekken met een `TODO`-comment:
 
 1. **De knop "Klik hier"** onder de tool (zoek op `TODO: vervang href="#cursus"`). Vervang `href="#cursus"` door de URL van je cursuspagina, bijvoorbeeld `href="https://jouwsite.nl/cursus"`.
-2. **De placeholder-sectie** `<section id="cursus">` onderaan de pagina. Die kun je verwijderen zodra de knop naar je echte pagina wijst.
+2. **De link "Bekijk de cursus"** in het blok *Gemaakt door een NT2-docent*.
+3. **De placeholder-sectie** `<section id="cursus">` onderaan de pagina. Die kun je verwijderen zodra de knop naar je echte pagina wijst.
 
 ## Kostenbescherming
 

@@ -173,11 +173,16 @@ app.post("/api/register", async (req, res) => {
   if (!email) return res.status(400).json({ error: "Vul een geldig e-mailadres in." });
 
   const name = String(req.body?.name || "").trim().slice(0, 100);
+  // Toestemming voor marketingmail is los van toegang tot de tool (AVG). Alleen een expliciete "ja" wordt vastgelegd;
+  // intrekken verwerk je handmatig (zet marketingConsent op false in emails.json).
+  const consent = req.body?.marketingConsent === true;
+  const now = new Date().toISOString();
   if (!store[email]) {
-    store[email] = { email, name, createdAt: new Date().toISOString(), uses: 0, lastUsedAt: null };
+    store[email] = { email, name, createdAt: now, uses: 0, lastUsedAt: null, marketingConsent: consent, consentAt: consent ? now : null };
     await saveStore();
-  } else if (name && !store[email].name) {
-    store[email].name = name;
+  } else if ((name && !store[email].name) || (consent && !store[email].marketingConsent)) {
+    if (name && !store[email].name) store[email].name = name;
+    if (consent && !store[email].marketingConsent) Object.assign(store[email], { marketingConsent: true, consentAt: now });
     await saveStore();
   }
   res.json({ ok: true, remaining: remainingFor(email), limit: FREE_LIMIT });
@@ -246,8 +251,8 @@ app.get("/api/admin/emails.csv", (req, res) => {
   if (!ADMIN_TOKEN || token !== ADMIN_TOKEN) return res.status(401).send("Niet toegestaan");
 
   const esc = (v) => `"${String(v ?? "").replace(/"/g, '""')}"`;
-  const rows = Object.values(store).map((r) => [r.email, r.name, r.createdAt, r.uses, r.lastUsedAt].map(esc).join(","));
-  res.type("text/csv").attachment("emails.csv").send(["email,naam,aangemeld_op,gebruikt,laatst_gebruikt", ...rows].join("\n"));
+  const rows = Object.values(store).map((r) => [r.email, r.name, r.marketingConsent ? "ja" : "nee", r.consentAt, r.createdAt, r.uses, r.lastUsedAt].map(esc).join(","));
+  res.type("text/csv").attachment("emails.csv").send(["email,naam,mag_mailen,toestemming_op,aangemeld_op,gebruikt,laatst_gebruikt", ...rows].join("\n"));
 });
 
 await loadStore();

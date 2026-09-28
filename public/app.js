@@ -115,7 +115,7 @@
     const btn = emailForm.querySelector("button");
     btn.disabled = true;
     try {
-      const data = await postJson("/api/register", { email: addr });
+      const data = await postJson("/api/register", { email: addr, marketingConsent: $("consent").checked });
       unlockTool(addr, data.remaining);
       toolSection.scrollIntoView({ block: "start" });
     } catch (err) {

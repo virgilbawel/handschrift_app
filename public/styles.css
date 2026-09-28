@@ -85,7 +85,7 @@ a { color: var(--indigo-dark); }
 .lead { font-size: clamp(1.05rem, 1rem + 0.3vw, 1.2rem); color: #cbd5e1; max-width: 680px; margin-bottom: 2rem; }
 
 .email-form { display: flex; gap: 10px; max-width: 520px; }
-.email-form input {
+.email-form input[type="email"] {
   flex: 1; min-width: 0; min-height: 52px; padding: 0 16px;
   font: inherit; color: var(--navy-900);
   background: #fff; border: 2px solid transparent; border-radius: 10px;
@@ -94,6 +94,12 @@ a { color: var(--indigo-dark); }
 .email-form .btn:hover { background: #eab308; }
 .hero .form-error { color: #fca5a5; }
 .form-note { font-size: 0.85rem; color: #94a3b8; margin-top: 0.75rem; max-width: 520px; }
+.email-form { flex-wrap: wrap; }
+.consent { flex-basis: 100%; display: flex; gap: 10px; align-items: flex-start; font-size: 0.9rem; color: #cbd5e1; cursor: pointer; }
+.consent input { width: 18px; height: 18px; margin: 3px 0 0; flex-shrink: 0; accent-color: #facc15; }
+.form-note a { color: #cbd5e1; }
+.maker { margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--slate-200); }
+.maker h3 { color: var(--navy-900); font-size: 1.15rem; margin: 0 0 0.75rem; }
 .form-note-strong { color: #e2e8f0; font-weight: 600; }
 .form-error { color: var(--red); font-weight: 500; margin: 0.75rem 0 0; }
 
@@ -170,3 +176,9 @@ a { color: var(--indigo-dark); }
   html { scroll-behavior: auto; }
   .spinner { animation-duration: 2s; }
 }
+
+/* Privacyverklaring */
+.legal h1 { font-size: clamp(1.6rem, 1.3rem + 1.2vw, 2.2rem); margin: 0 0 0.25rem; }
+.legal h2 { font-size: 1.2rem; margin: 2rem 0 0.5rem; }
+.legal ul { padding-left: 1.2rem; margin: 0 0 1rem; }
+.legal li { margin-bottom: 0.35rem; }
