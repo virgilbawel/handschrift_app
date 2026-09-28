@@ -90,7 +90,8 @@ a { color: var(--indigo-dark); }
   font: inherit; color: var(--navy-900);
   background: #fff; border: 2px solid transparent; border-radius: 10px;
 }
-.email-form .btn { min-height: 52px; }
+.email-form .btn { min-height: 52px; color: var(--navy-900); background: #facc15; }
+.email-form .btn:hover { background: #eab308; }
 .hero .form-error { color: #fca5a5; }
 .form-note { font-size: 0.85rem; color: #94a3b8; margin-top: 0.75rem; max-width: 520px; }
 .form-error { color: var(--red); font-weight: 500; margin: 0.75rem 0 0; }
