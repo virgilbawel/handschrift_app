@@ -53,6 +53,14 @@
     return data;
   }
 
+  // Toon het echte aantal gratis transcripties (instelbaar via FREE_LIMIT op de server)
+  fetch("/api/config")
+    .then((res) => res.json())
+    .then(({ limit }) => {
+      if (limit) document.querySelectorAll("[data-free-limit]").forEach((el) => (el.textContent = `${limit} gratis ${limit === 1 ? "transcriptie" : "transcripties"}`));
+    })
+    .catch(() => {});
+
   // ---------- E-mail en toegang ----------
 
   function updateRemaining(n) {
@@ -65,7 +73,10 @@
     fileInput.disabled = n <= 0;
     dropzone.style.display = n > 0 ? "" : "none";
     transcribeBtn.hidden = n <= 0;
-    if (n <= 0) preview.hidden = true;
+    if (n <= 0) {
+      preview.hidden = true;
+      courseCta.hidden = false;
+    }
     updateButton();
   }
 

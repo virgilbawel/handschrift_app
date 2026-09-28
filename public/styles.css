@@ -94,6 +94,7 @@ a { color: var(--indigo-dark); }
 .email-form .btn:hover { background: #eab308; }
 .hero .form-error { color: #fca5a5; }
 .form-note { font-size: 0.85rem; color: #94a3b8; margin-top: 0.75rem; max-width: 520px; }
+.form-note-strong { color: #e2e8f0; font-weight: 600; }
 .form-error { color: var(--red); font-weight: 500; margin: 0.75rem 0 0; }
 
 /* Secties */
@@ -126,6 +127,7 @@ a { color: var(--indigo-dark); }
 .dropzone svg { color: var(--indigo); }
 .dropzone-title { font-weight: 600; color: var(--navy-900); }
 
+.privacy-note { margin: 10px 0 0; }
 .preview { display: block; max-width: 100%; max-height: 320px; margin: 16px auto 0; border-radius: 10px; border: 1px solid var(--slate-200); }
 #transcribe-btn { margin-top: 16px; }
 

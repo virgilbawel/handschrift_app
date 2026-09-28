@@ -164,6 +164,9 @@ app.set("trust proxy", 1); // nodig achter de proxy van Render/Vercel voor het j
 app.use(express.json({ limit: "10kb" }));
 app.use(express.static(path.join(__dirname, "public")));
 
+// Openbare instellingen voor de pagina (bijv. het aantal gratis transcripties)
+app.get("/api/config", (_req, res) => res.json({ limit: FREE_LIMIT }));
+
 // Stap 1: e-mailadres registreren en toegang geven
 app.post("/api/register", async (req, res) => {
   const email = normalizeEmail(req.body?.email);
