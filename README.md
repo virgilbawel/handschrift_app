@@ -49,6 +49,14 @@ De API-sleutel staat alleen op de server. De browser praat uitsluitend met je ei
 
 `.env` staat in `.gitignore`, zodat je sleutel nooit per ongeluk op GitHub terechtkomt.
 
+### Testen zonder API-sleutel (demomodus)
+
+```bash
+npm run demo
+```
+
+Alles werkt zoals normaal (e-mail, limiet, upload-controles, kopiëren, Word-download), maar in plaats van Claude aan te roepen krijg je na een paar seconden een vaste voorbeeldtekst terug. Er zijn dus geen kosten. Gebruik dit **nooit** op Render: zet daar geen `DEMO_MODE` in de instellingen.
+
 ## Online zetten op Render (aanbevolen)
 
 Render draait een gewone Node-server en kan een vaste schijf koppelen, zodat je e-mailadressen bewaard blijven.
@@ -99,3 +107,13 @@ Tip: stel in de [Anthropic Console](https://console.anthropic.com/settings/limit
 `server.js` stuurt de foto naar Claude met de opdracht om de tekst **letterlijk** over te nemen, inclusief spel- en grammaticafouten van de leerling (die wil de docent juist beoordelen). Moeilijk leesbare woorden worden op basis van de context hersteld en tussen haken gezet, bijvoorbeeld `[boodschappen?]`, zodat de docent ziet welke woorden gecontroleerd moeten worden. De opdracht (`SYSTEM_PROMPT`) kun je bovenin `server.js` aanpassen.
 
 Wordt een verzoek door het model geweigerd, dan probeert de API het automatisch opnieuw met een ander Claude-model (`fallbacks: "default"`).
+
+## Teksten aanpassen en bijwerken op GitHub
+
+Alle teksten van de pagina staan in `public/index.html`. Pas alleen de tekst tussen de tags aan, dus tussen `>` en `<`. Daarna:
+
+```bash
+npm run update -- "Korte omschrijving van je wijziging"
+```
+
+Dit zet al je wijzigingen op GitHub. Render zet ze daarna automatisch binnen een paar minuten live.

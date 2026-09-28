@@ -21,8 +21,12 @@ const DATA_FILE = path.join(DATA_DIR, "emails.json");
 const ADMIN_TOKEN = process.env.ADMIN_TOKEN || "";
 const MAX_UPLOAD_BYTES = 10 * 1024 * 1024; // 10 MB upload-limiet
 const MAX_API_IMAGE_BYTES = 5 * 1024 * 1024; // limiet per afbeelding van de Anthropic API
+// Demomodus: geen aanroep naar Claude, maar een vaste voorbeeldtekst. Alleen voor lokaal testen!
+const DEMO_MODE = process.env.DEMO_MODE === "1";
 
-if (!process.env.ANTHROPIC_API_KEY) {
+if (DEMO_MODE) {
+  console.warn("🧪 DEMOMODUS: er wordt geen API aangeroepen, elke foto geeft dezelfde voorbeeldtekst.");
+} else if (!process.env.ANTHROPIC_API_KEY) {
   console.warn("⚠️  ANTHROPIC_API_KEY ontbreekt — transcriberen werkt pas als je die instelt (zie README).");
 }
 
@@ -104,7 +108,18 @@ Regels:
 - Geef alleen de transcriptie terug, zonder inleiding, uitleg of commentaar.
 - Staat er geen handgeschreven tekst op de afbeelding, antwoord dan precies: GEEN_TEKST`;
 
+const DEMO_TEXT = `[DEMO — dit is een voorbeeldtekst, de foto is niet echt gelezen]
+
+Mijn naam is Amina. Ik woon in Utrecht sinds twee jaar. Ik heb drie kinderen, twee [dochters?] en een zoon.
+
+In het weekend ik ga naar de markt met mijn man. Wij kopen groente en fruit. Het is goedkoper dan de [supermarkt?].`;
+
 async function transcribe(buffer, mediaType) {
+  if (DEMO_MODE) {
+    await new Promise((resolve) => setTimeout(resolve, 2500)); // doe alsof het even duurt
+    return DEMO_TEXT;
+  }
+
   const response = await client.beta.messages.create({
     model: MODEL,
     max_tokens: 16000,
@@ -195,7 +210,7 @@ app.post("/api/transcribe", (req, res) => {
     if (req.file.buffer.length > MAX_API_IMAGE_BYTES) {
       return res.status(400).json({ error: "De foto is te groot om te verwerken. Probeer een kleinere foto." });
     }
-    if (!process.env.ANTHROPIC_API_KEY) return res.status(503).json({ error: "De tool is nog niet ingesteld. Probeer het later opnieuw." });
+    if (!DEMO_MODE && !process.env.ANTHROPIC_API_KEY) return res.status(503).json({ error: "De tool is nog niet ingesteld. Probeer het later opnieuw." });
 
     if (inFlight.has(email)) return res.status(429).json({ error: "Er loopt al een transcriptie. Even geduld." });
     inFlight.add(email);
