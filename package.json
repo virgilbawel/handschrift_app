@@ -1,0 +1,20 @@
+{
+  "name": "handschriftlezer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Gratis handschrift-transcriptie voor NT2-docenten (leadgeneratie)",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=20.12"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "latest",
+    "express": "^4.21.2",
+    "multer": "^2.0.2"
+  }
+}

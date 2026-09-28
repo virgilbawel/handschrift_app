@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Handschriftlezer — handgeschreven NT2-werk direct uitgetypt</title>
+  <meta name="description" content="Upload een foto van handgeschreven NT2-werk en krijg direct een leesbare, letterlijke transcriptie terug.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%236366f1'/%3E%3Cpath d='M8 21c3-6 5-10 7-10s-1 9 2 9 3-5 7-7' stroke='white' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- 1. Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#top" class="logo" aria-label="Handschriftlezer — naar boven">
+        <svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#6366f1"/><path d="M8 21c3-6 5-10 7-10s-1 9 2 9 3-5 7-7" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
+        <span>Handschriftlezer</span>
+      </a>
+      <a href="#email" class="btn btn-small" data-scroll-to-email>Probeer gratis</a>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- 2. Hero -->
+    <section class="hero">
+      <div class="container hero-inner">
+        <h1>Handgeschreven werk nakijken kost je nu 15 minuten per leerling. Dat kan sneller.</h1>
+        <p class="lead">Upload een foto van handgeschreven NT2-werk en krijg direct een leesbare, letterlijke transcriptie terug — inclusief onduidelijke woorden die hersteld zijn op basis van context.</p>
+
+        <form id="email-form" class="email-form" novalidate>
+          <label for="email" class="sr-only">E-mailadres</label>
+          <input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="jouw@e-mailadres.nl" required>
+          <button type="submit" class="btn">Probeer gratis</button>
+        </form>
+        <p id="email-error" class="form-error" role="alert" hidden></p>
+        <p class="form-note">Door je e-mailadres in te vullen, ga je ermee akkoord dat we je af en toe mailen. Afmelden kan altijd.</p>
+      </div>
+    </section>
+
+    <!-- 5. De tool (verschijnt pas na geldig e-mailadres) -->
+    <section id="tool" class="tool-section" hidden>
+      <div class="container">
+        <div class="card tool-card">
+          <div class="tool-head">
+            <h2>Transcribeer handgeschreven werk</h2>
+            <p class="muted"><span id="remaining"></span> <button type="button" class="link-btn" id="switch-email">Ander e-mailadres</button></p>
+          </div>
+
+          <form id="upload-form">
+            <label class="dropzone" id="dropzone">
+              <input id="file" type="file" accept="image/*">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              <span class="dropzone-title">Kies of maak een foto</span>
+              <span class="muted small">JPG, PNG, WEBP of GIF · maximaal 10 MB</span>
+            </label>
+            <img id="preview" class="preview" alt="Voorbeeld van de gekozen foto" hidden>
+
+            <button type="submit" class="btn btn-block" id="transcribe-btn" disabled>
+              <span class="spinner" aria-hidden="true"></span>
+              <span class="btn-label">Transcribeer</span>
+            </button>
+          </form>
+
+          <p id="status" class="status" role="status" aria-live="polite"></p>
+          <p id="tool-error" class="form-error" role="alert" hidden></p>
+
+          <div id="result" class="result" hidden>
+            <label for="result-text" class="result-label">Transcriptie</label>
+            <textarea id="result-text" rows="12"></textarea>
+            <p class="muted small">Woorden tussen [haken?] zijn op basis van de context hersteld — controleer ze even.</p>
+            <div class="result-actions">
+              <button type="button" class="btn btn-secondary" id="copy-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <span>Kopieer</span>
+              </button>
+              <button type="button" class="btn btn-secondary" id="download-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Download als Word</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Cursus-CTA (verschijnt na het eerste resultaat) -->
+        <div id="course-cta" class="card cta-card" hidden>
+          <h2>Wil je zelf leren om deze app te bouwen met Claude of ChatGPT?</h2>
+          <!-- TODO: vervang href="#cursus" door echte cursuspagina-URL -->
+          <a href="#cursus" class="btn btn-light">Klik hier</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Probleem -->
+    <section class="section">
+      <div class="container narrow">
+        <h2>Handschrift ontcijferen kost tijd die je niet hebt</h2>
+        <p>Je NT2-leerlingen leren schrijven in het Nederlands — vaak in een nieuw schrift, met letters en woorden die nog niet vanzelf gaan. Daardoor is hun handschrift regelmatig lastig te lezen.</p>
+        <p>Het ontcijferen van één handgeschreven werk kost al snel 15 minuten. Tijd die opgaat aan lezen, niet aan waar het om draait: het werk beoordelen en je leerling goede feedback geven.</p>
+      </div>
+    </section>
+
+    <!-- 4. Hoe het werkt -->
+    <section class="section section-alt">
+      <div class="container">
+        <h2 class="center">Hoe het werkt</h2>
+        <ol class="steps">
+          <li class="step">
+            <span class="step-num">1</span>
+            <p>Vul je e-mailadres in</p>
+          </li>
+          <li class="step">
+            <span class="step-num">2</span>
+            <p>Maak een foto van het handgeschreven werk en upload deze</p>
+          </li>
+          <li class="step">
+            <span class="step-num">3</span>
+            <p>De tekst wordt automatisch en letterlijk overgetypt — kopieer of download als Word-document</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 7. Voor wie -->
+    <section class="section">
+      <div class="container narrow">
+        <h2>Gemaakt voor NT2-docenten, niet voor techneuten</h2>
+        <p>Je hebt geen kennis van AI nodig en er zijn geen ingewikkelde instellingen. Vul je e-mailadres in, maak een foto en je krijgt de tekst terug. Dat is alles.</p>
+        <a href="#email" class="btn" data-scroll-to-email>Probeer gratis</a>
+      </div>
+    </section>
+
+    <!-- Placeholder voor de cursuspagina -->
+    <!-- TODO: vervang deze placeholder-sectie door een link naar je echte cursuspagina (of verwijder hem zodra de CTA-link hierboven naar de echte URL wijst) -->
+    <section id="cursus" class="section section-alt">
+      <div class="container narrow center">
+        <p class="muted">Cursus vibecoding — binnenkort meer informatie.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 8. Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      © 2026 Handschriftlezer · <a href="mailto:virgilbawits@gmail.com">virgilbawits@gmail.com</a>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
